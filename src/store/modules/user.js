@@ -5,7 +5,7 @@
  * @LastEditTime : 2020-01-02 15:09:14
  * @LastEditors  : Please set LastEditors
  */
-import { login, logout, getInfo, getRouter, getSystemInfo } from '@/api/user'
+import { login, logout, getInfo, getRouter } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -25,7 +25,9 @@ const mutations = {
     state.token = token
   },
   SET_USERINFO: (state, info) => {
+    console.log(info)
     state.userInfo = info
+    console.log(state.userInfo)
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
@@ -53,11 +55,12 @@ const actions = {
     const { username, passwordPut } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: passwordPut }).then(response => {
-        console.log(response)
+        console.log(response.Data)
         // const { data } = response
         // console.log(response)
-        commit('SET_TOKEN', 'testToken')
-        setToken('testToken')
+        commit('SET_TOKEN', response.Data.id)
+        // commit('SET_USERINFO', response.Data)
+        setToken(response.Data.id)
         resolve()
       }).catch(error => {
         reject(error)
@@ -68,18 +71,12 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo().then(response => {
+      getInfo({ id: state.token }).then(response => {
         const { Data } = response
         if (!Data) {
           reject('获取用户信息失败，请重新登录！')
         }
         commit('SET_USERINFO', Data)
-
-        getSystemInfo().then(res => {
-          commit('SET_SYSINFO', res.Data)
-        }).catch(error => {
-          console.error(error)
-        })
         resolve(Data)
       }).catch(error => {
         reject(error)

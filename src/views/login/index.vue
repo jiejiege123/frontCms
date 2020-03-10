@@ -93,12 +93,12 @@
 <script>
 // import { validUsername } from '@/utils/validate'
 import md5 from 'js-md5'
-import Verify from '@/components/Verify/Verify'
+// import Verify from '@/components/Verify/Verify'
 import { getCodeImage, codeCheck } from '@/api/user'
 export default {
   name: 'Login',
   components: {
-    Verify
+    // Verify
   },
   data() {
     const validateUsername = (rule, value, callback) => {
@@ -188,7 +188,8 @@ export default {
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
             this.checkNow = false
-          }).catch(() => {
+          }).catch((err) => {
+            console.error(err)
             this.$store.commit('user/SET_VERIFYFLAG', false)
             this.$store.commit('user/SET_FINISHTIP', '')
             // this.$refs.slideRef.refresh()

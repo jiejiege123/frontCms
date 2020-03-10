@@ -9,10 +9,10 @@
         <div class="avatar-wrapper">
           <!-- <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar"> -->
           <span style="padding-right: 15px">
-            {{ userLy }}
+            <!-- {{ userLy }} -->
           </span>
           <span>
-            {{ userInfo.Name }}
+            {{ userInfo.userName }}
           </span>
           <i class="el-icon-caret-bottom" />
         </div>
@@ -238,39 +238,6 @@ export default {
       'avatar',
       'userInfo'
     ]),
-    userLy: function() {
-      if (this.userInfo.UserType === 'Admin') {
-        return '超级管理员'
-      } else if (this.userInfo.UserType === 'Company') {
-        const object = this.userInfo.Companys
-        const codes = this.userInfo.CompanyCodes
-        let companys = ''
-        for (const key in object) {
-          if (object.hasOwnProperty(key)) {
-            const e = object[key]
-            const ikey = codes.find(n => n === key)
-            if (ikey) {
-              companys = e.Name + companys
-            }
-          }
-        }
-        return companys
-      } else {
-        const object = this.userInfo.Departments
-        const codes = this.userInfo.DepartmentCodes
-        let departments = ''
-        for (const key in object) {
-          if (object.hasOwnProperty(key)) {
-            const e = object[key]
-            const ikey = codes.find(n => n === key)
-            if (ikey) {
-              departments = e.Name + departments
-            }
-          }
-        }
-        return departments
-      }
-    },
     action() {
       return `${process.env.VUE_APP_BASE_API}/Basic/UploadImage`
     }

@@ -25,6 +25,15 @@ export function logout() {
   })
 }
 
+export function getInfo(params) {
+  return request({
+    url: '/blog/getInfo',
+    method: 'get',
+    params
+  })
+}
+
+
 // 修改密码
 export function changePassword(data) {
   return request({

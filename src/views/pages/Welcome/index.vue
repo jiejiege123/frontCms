@@ -54,7 +54,7 @@
 </template>
 
 <script >
-import { } from '@/api/index'
+import { profile } from '@/api/index'
 import DialogForm from '@/components/DialogForm'
 
 import { mapGetters } from 'vuex'
@@ -98,10 +98,10 @@ export default {
     ...mapGetters(['userInfo'])
   },
   created() {
-    this.getNodeTest()
+    // this.getNodeTest()
   },
   mounted() {
-
+    console.log(this.userInfo)
   },
   methods: {
     /** ********** 通用 start ************ **/
@@ -121,7 +121,17 @@ export default {
         this.dialogTitle = '个人设置'
         this.formItems = [
           {
-
+            label: '昵称',
+            prop: 'userName'
+          },
+          {
+            label: '邮箱',
+            prop: 'email'
+          },
+          {
+            label: '头像',
+            prop: 'hendPhoto',
+            type: 'img'
           }
         ]
         this.getOptionData()

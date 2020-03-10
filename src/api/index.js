@@ -23,3 +23,12 @@ export function uploadImage(data) {
     headers: { 'Content-Type': 'multipart/form-data' }
   })
 }
+
+// 个人设置
+export function profile(data) {
+  return request({
+    url: '/blog/profile',
+    method: 'post',
+    data
+  })
+}
