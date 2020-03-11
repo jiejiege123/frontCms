@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-17 23:54:33
- * @LastEditTime: 2019-09-03 10:28:12
+ * @LastEditTime: 2020-03-11 11:47:47
  * @LastEditors: Please set LastEditors
  -->
 <template lang="pug">
@@ -31,7 +31,7 @@
 </template>
 
 <script >
-import { getNode, getPost, uploadImage } from '@/api/index'
+import { uploadImage } from '@/api/index'
 import { mapGetters } from 'vuex'
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
@@ -90,7 +90,6 @@ export default {
     ...mapGetters(['userInfo'])
   },
   created() {
-    this.getNodeTest()
   },
   mounted() {
 
@@ -151,18 +150,11 @@ export default {
     change(md, text) {
       // console.log(md, text)
       this.mdHtml = text
-    },
+    }
     /** ********** 操作 end ************ **/
 
     /** ********** 接口 start ************ **/
-    getNodeTest() {
-      getNode({ id: 1 }).then(res => {
-        // console.log(res)
-      })
-      getPost({ id: 1 }).then(res => {
-        // console.log(res)
-      })
-    }
+
     /** ********** 接口 end ************ **/
 
   }

@@ -98,7 +98,6 @@ export default {
     ...mapGetters(['userInfo'])
   },
   created() {
-    // this.getNodeTest()
   },
   mounted() {
     console.log(this.userInfo)
