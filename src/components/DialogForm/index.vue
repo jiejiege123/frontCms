@@ -73,6 +73,14 @@
           img.avatar(v-if='ruleForm[item.prop]' :src='ruleForm[item.prop] | filterImg')
           i.el-icon-plus.avatar-uploader-icon(v-else)
       el-input(
+        v-else-if="item.type === 'number'"
+        v-model='ruleForm[item.prop]'
+        size="small"
+        oninput="value=value.replace(/[^\\d.]/g,'')"
+        autocomplete = "new-password"
+        :placeholder="item.horder || ('请输入' + item.label)"
+        :disabled="dialogType==='view' || (dialogType === 'update' && item.disUpdate)")
+      el-input(
         v-else
         v-model='ruleForm[item.prop]'
         size="small"
@@ -134,7 +142,7 @@ export default {
   },
   computed: {
     action() {
-      return `${process.env.VUE_APP_BASE_API}/Basic/UploadImage`
+      return `${process.env.VUE_APP_BASE_API}/backend/UploadImage`
     },
     ...mapGetters(['sysInfo', 'userInfo'])
   },

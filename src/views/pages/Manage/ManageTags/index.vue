@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-11-01 10:18:26
- * @LastEditTime: 2020-03-13 16:39:28
- * @LastEditors: Please set LastEditors
+ * @LastEditTime : 2020-01-06 15:23:11
+ * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \bpsp-ui\src\views\pages\Info\Staffs\index.vue
  -->
@@ -16,7 +16,7 @@
       //-   placeholder="请选择审核状态"
       //-   filterable
       //-   style="padding-right:15px; width:160px"
-      //-   size="small"
+      //-   size="mini"
       //-   clearable
       //-   @change="doSearch")
       //-   el-option(
@@ -29,7 +29,7 @@
       //-   placeholder="请选择岗位类型"
       //-   filterable
       //-   style="padding-right:15px; width:160px"
-      //-   size="small"
+      //-   size="mini"
       //-   clearable
       //-   @change="doSearch")
       //-   el-option(
@@ -38,26 +38,26 @@
       //-     :label="item.label"
       //-     :value="item.value")
       el-input.input-search(
-        placeholder='请输入公司名称或姓名'
+        placeholder='请输入分类名称'
         v-model='search'
-        size="small"
+        size="mini"
         clearable
         style="width:230px"
         @clear="doSearch")
-        el-button(slot="append" icon="el-icon-search" type="primary" size="small" @click="doSearch")
+        el-button(slot="append" icon="el-icon-search" type="primary" size="mini" @click="doSearch")
     .operate
       //- v-if="userInfo.UserType === 'Company'"
       el-button(
         type="primary"
-        size="small"
+        size="mini"
         @click='createdRow') 新增
       //- el-button(
       //-   type="danger"
-      //-   size="small"
+      //-   size="mini"
       //-   @click='batchRow') 批量
 
   .table-warp.flex1.layout-column
-    el-table.flex1(
+    el-table(
       v-loading="loading"
       :data='tableData'
       style='width: 100%'
@@ -68,44 +68,31 @@
       ref="reftable"
       :cell-class-name="cellClassName"
       @selection-change="selectionChange"
-      empty-text="没有数据")
-      //- el-table-column(
-      //-   type="selection"
-      //-   width="55")
-      el-table-column(label="#" align="center" type="index" :index="indexMethod" width="55px")
-      el-table-column(label="公司名称" align="left" prop="comname" width="150px")
-      el-table-column(
-        v-for="(item,index) in tableColumn" :key="index"
-        :prop="item.prop"
-        :label="item.label"
-        :align="item.align"
-        :width="item.width"
-        )
-        template(slot-scope='scope')
-          span(v-if="item.prop==='xxx'") {{scope.row.xxx | filterXxx}}
-          img(
-            v-else-if="item.type==='img'"
-            :src="scope.row[item.prop] | filterImg"
-            @click="showImgDanTable('danTableRef')"
-            style="width:40px;height:40px;cursor: pointer")
-          span(v-else) {{scope.row[item.prop]}}
-
-      el-table-column(label="操作" align="center" fixed="right" width="220px")
+      empty-text="没有数据"
+      row-key="id"
+      default-expand-all
+      :tree-props="{children: 'children', hasChildren: 'hasChildren'}")
+      el-table-column(type="selection" align="center" width="55")
+      el-table-column(label="名称" align="left" prop="tagName")
+      el-table-column(label="字段" align="center" prop="eName")
+      el-table-column(label="文章数" align="center" prop="nums")
+      el-table-column(label="说明" align="center" prop="decs")
+      el-table-column(label="操作" align="center" fixed="right" width="150px")
         template(slot-scope='scope')
           el-button(
             type="primary"
             @click="editRow(scope.row)"
-            size="small") 编辑
-          el-button(
-            type="success"
-            plain
-            @click="viewRow(scope.row)"
-            size="small") 详情
+            size="mini") 编辑
+          //- el-button(
+          //-   type="success"
+          //-   plain
+          //-   @click="viewRow(scope.row)"
+          //-   size="mini") 详情
           el-button(
             type="danger"
             plain
             @click="deleted(scope.row)"
-            size="small") 删除
+            size="mini") 删除
 
     //- 分页
     .pages
@@ -130,115 +117,8 @@
         v-loading="dialogLoading"
         :model='ruleForm',
         ref='ruleForm',
-        label-width='140px'
+        label-width='80px'
         :rules="rules")
-        //- .approve.layout-row(v-if="dialogType!=='add'")
-        //-   el-form-item.margin0(label='审核单位')
-        //-     span {{ruleForm.codename}}
-        //-   el-form-item.margin0(label='审核人')
-        //-     span {{ruleForm.codespr}}
-        //-   el-form-item.margin0(label='审核状态')
-        //-     span {{ruleForm.codespvalueZh}}
-        //-   el-form-item.margin0(label='审核时间')
-        //-     span {{ruleForm.codesptime}}
-        //-   el-form-item.margin0(label='审核意见' style='width:100%')
-        //-     span {{ruleForm.codespdemo}}
-        //- .form-warp.default-input(v-for="(item,index) in formItems" :class="[item.online?'online':'']")
-        //-   el-form-item(
-        //-     :key="index"
-        //-     :prop='item.prop'
-        //-     :label="item.label")
-        //-     el-select(
-        //-       v-if="item.type === 'select'"
-        //-       v-model="ruleForm[item.prop]"
-        //-       :placeholder="item.horder || ('请选择' + item.label)"
-        //-       size="small"
-        //-       :ref="item.prop"
-        //-       filterable
-        //-       @change="selectChange($event, item.prop)"
-        //-       :disabled="dialogType==='view' || (dialogType === 'update' && item.disUpdate)")
-        //-       el-option(
-        //-         v-for="list in dics[item.prop]"
-        //-         :key="list.value"
-        //-         :label="list.label"
-        //-         :value="list.value")
-        //-     el-date-picker(
-        //-       v-else-if="item.type === 'date'"
-        //-       v-model="ruleForm[item.prop]"
-        //-       type="date"
-        //-       :placeholder="item.horder || ('请选择' + item.label)"
-        //-       size="small"
-        //-       value-format="yyyy-MM-dd"
-        //-       :editable="false"
-        //-       :disabled="dialogType==='view' || (dialogType === 'update' && item.disUpdate)")
-        //-     long-date-picker(
-        //-       v-else-if="item.type === 'longDate'"
-        //-       :valueTime="ruleForm[item.prop]"
-        //-       :placeholder="item.horder || ('请选择' + item.label)"
-        //-       @onChange="onChange($event, item.prop)"
-        //-       :editable="false"
-        //-       :disabled="dialogType==='view' || (dialogType === 'update' && item.disUpdate)")
-        //-     el-cascader(
-        //-       v-else-if="item.type === 'cascader'"
-        //-       :options='dics[item.prop]',
-        //-       :show-all-levels='false'
-        //-       v-model="ruleForm[item.prop]"
-        //-       size="small"
-        //-       filterable
-        //-       :placeholder="item.horder || ('请选择' + item.label)"
-        //-       :disabled="dialogType==='view' || (dialogType === 'update' && item.disUpdate)")
-        //-     el-input(
-        //-       v-else-if="item.type === 'textarea'"
-        //-       type='textarea',
-        //-       :autosize='{ minRows: 2, maxRows: 4}',
-        //-       :placeholder="item.horder || ('请输入' + item.label)"
-        //-       v-model='ruleForm[item.prop]'
-        //-       :disabled="dialogType==='view' || (dialogType === 'update' && item.disUpdate)")
-        //-     div(v-else-if="item.type === 'img'")
-        //-       img.avatar(
-        //-         v-if='ruleForm[item.prop] && (dialogType==="view")'
-        //-         :src='ruleForm[item.prop] | filterImg'
-        //-         style="margin:10px; cursor: pointer")
-        //-       el-upload.avatar-uploader(
-        //-         v-else
-        //-         :action='action'
-        //-         :show-file-list='false'
-        //-         :on-success='(value)=> handleFileSuccess(item.prop, value)'
-        //-         :before-upload='beforeAvatarUpload')
-        //-         img.avatar(v-if='ruleForm[item.prop]' :src='ruleForm[item.prop] | filterImg')
-        //-         i.el-icon-plus.avatar-uploader-icon(v-else)
-        //-     el-input(
-        //-       v-else
-        //-       v-model='ruleForm[item.prop]'
-        //-       size="small"
-        //-       :type="item.type?item.type:'text'"
-        //-       autocomplete = "new-password"
-        //-       :placeholder="item.horder || ('请输入' + item.label)"
-        //-       :disabled="dialogType==='view' || (dialogType === 'update' && item.disUpdate)")
-        //- 审核
-        //- el-form-item.pt10(
-        //-   v-if="(ruleForm.codespvalue === '0' || ruleForm.codespvalue === '') && (userInfo.UserType === 'Admin' || (userInfo.UserType === 'Department' && userInfo.DepartmentCodes[0] ===ruleForm.SpDepartmentCode))"
-        //-   label='审核'
-        //-   :rules="[{ required: true }]"
-        //-   style='width:100%'
-        //-   prop="codespvalue")
-        //-   el-radio-group(
-        //-     v-model='codespvalue'
-        //-     size='small'
-        //-     :disabled="dialogType==='view'")
-        //-     el-radio(label='1' border='') 通过
-        //-     el-radio(label='2' border='') 拒绝
-        //- el-form-item.pt10(
-        //-   v-if="(ruleForm.codespvalue === '0' || ruleForm.codespvalue === '') && (userInfo.UserType === 'Admin' || (userInfo.UserType === 'Department' && userInfo.DepartmentCodes[0] === ruleForm.SpDepartmentCode))"
-        //-   label='审核说明'
-        //-   :rules="codespvalue === '2' ? [{ required: true }] : []"
-        //-   style='width:100%' prop="codespdemo")
-        //-   el-input(
-        //-     type='textarea',
-        //-     :autosize='{ minRows: 2, maxRows: 4}',
-        //-     placeholder='如果拒绝，此项必填',
-        //-     v-model='ruleForm.codespdemo'
-        //-     :disabled="dialogType==='view'")
         dialog-form(
           :ruleForm="ruleForm"
           :dialogType="dialogType"
@@ -247,9 +127,9 @@
           :dics="dics"
           )
         el-form-item.dia-footer(
-          v-if="userInfo.UserType ===  'Company' && (dialogType === 'add' || dialogType === 'update')")
-          el-button(type='primary', @click="submitForm('ruleForm')" size="small") 提交
-          el-button(@click="closeDialog" size="small") 取消
+          v-if="(dialogType === 'add' || dialogType === 'update')")
+          el-button(type='primary', @click="submitForm('ruleForm')" size="mini") 提交
+          el-button(@click="closeDialog" size="mini") 取消
     //- 图片弹窗
     image-dialog(
       :imageTitle="imageTitle"
@@ -259,15 +139,13 @@
       )
 </template>
 <script >
-// import {
-//   getStaffsData,
-//   addStaffsData,
-//   updateStaffsData,
-//   deleteStaffsData } from '@/api/staffs'
+import {
+  getTags,
+  addTags,
+  updateTags,
+  delTags } from '@/api/index'
 import ImageDialog from '@/components/ImageDialog'
 import { mapGetters } from 'vuex'
-import { validateIdCard, parseTime } from '@/utils'
-import { checkPhone } from '@/utils/index'
 import DialogForm from '@/components/DialogForm'
 import LongDatePicker from '@/components/LongDatePicker'
 import 'viewerjs/dist/viewer.css'
@@ -297,91 +175,6 @@ export default {
     }
   },
   data() {
-    var idCard = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('请输入身份证号'))
-      } else {
-        if (!validateIdCard(value)) {
-          this.$message.error('请输入正确的身份证号')
-          callback(new Error('请输入正确的身份证号'))
-        } else {
-          let birthday = ''
-          const idCard = this.ruleForm.QF005
-          if (idCard != null && idCard !== '') {
-            if (idCard.length === 15) {
-              birthday = '19' + idCard.substr(6, 6)
-            } else if (idCard.length === 18) {
-              birthday = idCard.substr(6, 8)
-            }
-            birthday = birthday.replace(/(.{4})(.{2})/, '$1-$2-')
-          }
-          this.$set(this.ruleForm, 'QF004', birthday)
-          callback()
-        }
-      }
-    }
-    var startTime = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('请选择有效开始时间'))
-      } else {
-        if (this.ruleForm.XkzEndTime) {
-          if (this.ruleForm.XkzEndTime < value) {
-            this.$message.error('证照开始日期应该小于结束日期')
-            callback(new Error('开始日期不正确'))
-          } else {
-            const start = new Date(value)
-            const end = new Date(this.ruleForm.XkzEndTime)
-            const days = end - start
-            const day = parseInt(days / (1000 * 60 * 60 * 24))
-            if (day < 360) {
-              this.$message.error('证照有效期至少一年')
-              callback(new Error('开始日期不正确'))
-            } else {
-              this.$refs.ruleForm.clearValidate('XkzEndTime')
-            }
-            callback()
-          }
-        }
-        callback()
-      }
-    }
-    var endTime = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请选择有效结束时间'))
-      } else {
-        if (this.ruleForm.XkzStartTime) {
-          if (this.ruleForm.XkzStartTime > this.ruleForm.XkzEndTime) {
-            this.$message.error('证照结束日期应该大于开始日期')
-            callback(new Error('结束日期不正确'))
-          } else {
-            const end = new Date(this.ruleForm.XkzEndTime)
-            const start = new Date(this.ruleForm.XkzStartTime)
-            const days = end - start
-            const day = parseInt(days / (1000 * 60 * 60 * 24))
-            if (day < 360) {
-              this.$message.error('证照有效期至少一年')
-              callback(new Error('结束日期不正确'))
-            } else {
-              this.$refs.ruleForm.clearValidate('XkzStartTime')
-            }
-            callback()
-          }
-        }
-        callback()
-      }
-    }
-
-    var isPhone = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('电话不能为空'))
-      } else {
-        if (!checkPhone(value)) {
-          callback(new Error('请输入正确的电话号码'))
-        } else {
-          callback()
-        }
-      }
-    }
     return {
       /**
        * 查询
@@ -396,37 +189,7 @@ export default {
       currentPage: 1,
       pageSize: 20,
       tableData: [],
-      tableColumn: [
-        {
-          prop: 'kqname',
-          label: '库区名称'
-        },
-        {
-          prop: 'planname',
-          label: '计划名称'
-        },
-        {
-          prop: 'starttime',
-          label: '开始时间'
-        },
-        {
-          prop: 'endtime',
-          label: '结束时间'
-        },
-        {
-          prop: 'planvalueZh',
-          label: '检查状态'
-        },
-        {
-          prop: 'istongzhiZh',
-          label: '是否通知'
-        },
-        {
-          prop: 'iseditZh',
-          label: '是否编辑'
-        }
-
-      ],
+      tableColumn: [],
       /**
        * 弹框
        */
@@ -438,118 +201,23 @@ export default {
       dics: {},
       formItems: [
         {
-          label: '手持终端用户名',
-          prop: 'appusername',
-          horder: '用户名至少8位数，建议使用手机号',
-          disUpdate: true
+          label: '名称',
+          prop: 'tagName'
         },
         {
-          label: '手持终端密码',
-          prop: 'appuserpass',
-          type: 'password'
+          label: '字段',
+          prop: 'eName'
         },
         {
-          label: '姓名',
-          prop: 'QF001'
-        },
-        {
-          label: '性别',
-          prop: 'QF002',
-          type: 'select'
-        },
-        {
-          label: '岗位类型',
-          prop: 'QF007',
-          type: 'select'
-        },
-        {
-          label: '作业级别',
-          prop: 'PlLevle',
-          type: 'select'
-        },
-        {
-          label: '证件名称',
-          prop: 'XkzName',
-          type: 'select'
-        },
-        {
-          label: '证件号',
-          prop: 'XkzNo'
-        },
-        {
-          label: '证照有效开始日期',
-          prop: 'XkzStartTime',
-          type: 'date',
-          validator: true
-        },
-        {
-          label: '证照有效结束日期',
-          prop: 'XkzEndTime',
-          type: 'longDate',
-          validator: true
-        },
-        {
-          label: '联系电话',
-          prop: 'QF011',
-          validator: true
-        },
-        {
-          label: '民族',
-          prop: 'QF003',
-          type: 'select',
-          disUpdate: true
-        },
-        {
-          label: '技术职称',
-          prop: 'QF006',
-          type: 'select'
-        },
-        {
-          label: '学历',
-          prop: 'EDU',
-          type: 'select'
-        },
-        {
-          label: '专业',
-          prop: 'major',
-          // type: 'cascader',
-          validator: true
-        },
-        {
-          label: '通讯地址',
-          prop: 'QF010'
-        },
-        {
-          label: '身份证号',
-          prop: 'QF005',
-          validator: true
-        },
-        {
-          label: '身份证发证机关',
-          prop: 'QF0051'
-        },
-        {
-          label: '出生日期',
-          prop: 'QF004',
-          validator: true,
-          type: 'brith'
-        },
-        {
-          label: '身份证有效期',
-          prop: 'QF0055',
-          type: 'img',
-          validator: true,
-          horder: '截止日期'
+          label: '说明',
+          prop: 'decs',
+          type: 'textarea',
+          online: true
         }
       ],
       rules: {
-        QF005: [{ validator: idCard, required: true, trigger: 'blur' }],
-        QF011: [{ validator: isPhone, required: true, trigger: 'blur' }],
-        XkzStartTime: [{ validator: startTime, required: true, trigger: 'blur' }],
-        XkzEndTime: [{ validator: endTime, required: true, trigger: 'blur' }],
-        QF004: [{ required: false }],
-        QF0055: [{ required: true, trigger: 'blur' }],
-        major: [{ required: false }]
+        tagName: [{ required: true, message: '请输入分类名称', trigger: 'blur' }],
+        eName: [{ required: true, message: '请输入字段名称', trigger: 'blur' }]
       },
       /** 放大图片 */
       imgUrl: '',
@@ -566,7 +234,8 @@ export default {
     ...mapGetters(['sysInfo', 'userInfo'])
   },
   created() {
-    this.getDicDataList()
+    // this.getDicDataList()
+    this.getDataList()
   },
   mounted() {
   },
@@ -704,7 +373,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteStaffsData({ spuserIds: row.Id }).then(res => {
+        delTags({ id: row.id }).then(res => {
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -737,7 +406,7 @@ export default {
     submitForm(formName, status) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          const method = this.dialogType === 'add' ? addStaffsData : updateStaffsData
+          const method = this.dialogType === 'add' ? addTags : updateTags
           this.dialogLoading = true
           method(this.ruleForm).then(res => {
             this.$nextTick(() => {
@@ -784,19 +453,17 @@ export default {
         keyword: this.search
       }
       this.loading = true
-      getStaffsData(params).then(res => {
+      getTags(params).then(res => {
         this.$nextTick(() => {
           this.loading = false
         })
         setTimeout(() => {
           this.$refs.reftable.doLayout()
         }, 200)
-        const tableData = res.Data.Models
-        tableData.forEach(n => {
-          n.timestamp = parseTime(n.timestamp)
-        })
-        this.tableData = res.Data.Models
-        this.total = res.Data.TotalCount
+        const tableData = res.Data.data
+        // 处理table数据 形成数结构
+        this.tableData = tableData
+        this.total = res.Data.totle
       }).catch(() => {
         this.loading = false
       })
@@ -891,7 +558,7 @@ export default {
     }
     .el-form-item{
       width: 50%;
-      margin-bottom: 0px;
+      // margin-bottom: 0px;
     }
     .el-input{
       width: 200px;

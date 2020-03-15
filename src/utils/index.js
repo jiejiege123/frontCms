@@ -198,58 +198,58 @@ export function dateForamt(date, fmt) {
  * @return:
  */
 export function checkCarCode(vin) {
-	console.log(vin)
+  console.log(vin)
   if (vin.length > 0 && vin.length !== 17) {
     return false
   } else {
     return true
   }
-	// if (vin.length > 0 && vin.length != 17) {
-	// 	return false
-	// } else {
-	// 	var vinVal = vin.toUpperCase()
-	// 	// document.getElementById("vin_"+k).value = vinVal;
-	// 	var charToNum = { 'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6, 'G': 7, 'H': 8, 'J': 1, 'K': 2, 'L': 3, 'M': 4, 'N': 5, 'P': 7, 'R': 9, 'S': 2, 'T': 3, 'U': 4, 'V': 5, 'W': 6, 'X': 7, 'Y': 8, 'Z': 9 }
-	// 	var obj = 0
-	// 	var arr = new Array()
-	// 	for (var i = 0; i < vinVal.length; i++) {
-	// 		var temp = vinVal.charAt(i)
+  // if (vin.length > 0 && vin.length != 17) {
+  // 	return false
+  // } else {
+  // 	var vinVal = vin.toUpperCase()
+  // 	// document.getElementById("vin_"+k).value = vinVal;
+  // 	var charToNum = { 'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6, 'G': 7, 'H': 8, 'J': 1, 'K': 2, 'L': 3, 'M': 4, 'N': 5, 'P': 7, 'R': 9, 'S': 2, 'T': 3, 'U': 4, 'V': 5, 'W': 6, 'X': 7, 'Y': 8, 'Z': 9 }
+  // 	var obj = 0
+  // 	var arr = new Array()
+  // 	for (var i = 0; i < vinVal.length; i++) {
+  // 		var temp = vinVal.charAt(i)
 
-	// 		if (charToNum[temp]) {
-	// 			arr[i] = charToNum[temp]
-	// 		} else {
-	// 			arr[i] = Number(temp)
-	// 		}
-	// 		if (i == 8) {
-	// 			arr[i] = vinVal.charAt(i)
-	// 		}
-	// 	}
-	// 	var a1 = 8
-	// 	for (var i = 0; i < 7; i++) {
-	// 		obj += Number(arr[i]) * a1
-	// 		a1--
-	// 	}
+  // 		if (charToNum[temp]) {
+  // 			arr[i] = charToNum[temp]
+  // 		} else {
+  // 			arr[i] = Number(temp)
+  // 		}
+  // 		if (i == 8) {
+  // 			arr[i] = vinVal.charAt(i)
+  // 		}
+  // 	}
+  // 	var a1 = 8
+  // 	for (var i = 0; i < 7; i++) {
+  // 		obj += Number(arr[i]) * a1
+  // 		a1--
+  // 	}
 
-	// 	obj += Number(arr[7]) * 10
+  // 	obj += Number(arr[7]) * 10
 
-	// 	var a2 = 9
-	// 	for (var i = 9; i < 17; i++) {
-	// 		obj += Number(arr[i]) * a2
-	// 		a2--
-	// 	}
+  // 	var a2 = 9
+  // 	for (var i = 9; i < 17; i++) {
+  // 		obj += Number(arr[i]) * a2
+  // 		a2--
+  // 	}
 
-	// 	var result = Number(obj) % 11
-	// 	if (parseInt(result) === 10) {
-	// 		result = 'X'
-	// 	}
-	// 	if (result === arr[8]) {
-	// 		// 成功
-	// 		return true
-	// 	} else {
-	// 		// 失败
-	// 		return false
-	// 	}
-	// }
+  // 	var result = Number(obj) % 11
+  // 	if (parseInt(result) === 10) {
+  // 		result = 'X'
+  // 	}
+  // 	if (result === arr[8]) {
+  // 		// 成功
+  // 		return true
+  // 	} else {
+  // 		// 失败
+  // 		return false
+  // 	}
+  // }
 }
 /**
  * @description: 验证车牌号
@@ -257,7 +257,7 @@ export function checkCarCode(vin) {
  * @return:
  */
 export function isCar(str) {
-  return /^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z](([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳使领]))$/.test(str);
+  return /^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z](([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳使领]))$/.test(str)
 }
 /**
  * @description: 封装函数 实现深浅拷贝  deep为true深拷贝 false浅拷贝
@@ -285,9 +285,9 @@ export function copy(oldObj, deep = true) {
  * @return:
  */
 export function isEmail(str) {
-  return /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/.test(str);
+  return /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/.test(str)
 }
-// 
+//
 /**
  * @description: 身份证校验
  * @param {type}
@@ -387,7 +387,7 @@ export function listToTree(data) {
  * @param {type} ''
  * @return: ''
  */
-export function toTree(data) {
+export function toTree(data, id, pid) {
   // 删除 所有 children,以防止多次调用
   data.forEach(function(item) {
     delete item.children
@@ -396,13 +396,13 @@ export function toTree(data) {
   // 将数据存储为 以 id 为 KEY 的 map 索引数据列
   var map = {}
   data.forEach(function(item) {
-    map[item.Code] = item
+    map[item[id]] = item
   })
   //        console.log(map);
   var val = []
   data.forEach(function(item) {
     // 以当前遍历项，的pid,去map对象中找到索引的id
-    var parent = map[item.PCode]
+    var parent = map[item[pid]]
     // 好绕啊，如果找到索引，那么说明此项不在顶级当中,那么需要把此项添加到，他对应的父级中
     if (parent) {
       (parent.children || (parent.children = [])).push(item)

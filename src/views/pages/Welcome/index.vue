@@ -39,7 +39,7 @@
         v-loading="dialogLoading"
         :model='ruleForm',
         ref='ruleForm',
-        label-width='140px'
+        label-width='80px'
         :rules="rules")
         dialog-form(
           :ruleForm="ruleForm"
@@ -87,7 +87,7 @@ export default {
       ruleForm: {},
       dialogType: 'update',
       formItems: [],
-      rules: [],
+      rules: {},
       dics: {}
     }
   },
@@ -138,14 +138,52 @@ export default {
         this.dialogTitle = '系统设置'
         this.formItems = [
           {
-
+            label: '站点名称',
+            prop: 'sitName'
+          },
+          {
+            label: '个人主页',
+            prop: 'homePage'
+          },
+          {
+            label: '站点地址',
+            prop: 'sitHttp'
+          },
+          {
+            label: '站点描述',
+            prop: 'sitDis'
+          },
+          {
+            label: '关键词',
+            prop: 'sitKeys'
           }
         ]
       }
+      this.ruleForm = Object.assign({}, this.userInfo)
       this.dialogVisible = true
     },
-    submitForm() {
-
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.dialogLoading = true
+          // this.dialogType === 'add' ? mothed = addWorder : mothed = overUpdateWorder
+          profile(this.ruleForm).then(res => {
+            this.$nextTick(() => {
+              this.dialogLoading = false
+            })
+            this.closeDialog()
+            this.$message.success(res.Msg)
+            this.$store.dispatch('user/getInfo')
+          }).catch(err => {
+            this.dialogLoading = false
+            console.error(err)
+          })
+        } else {
+          this.$message.error('请将加*内容填写完整')
+          console.error('error submit!!')
+          return false
+        }
+      })
     },
     /** ********** 操作 end ************ **/
 
@@ -212,5 +250,8 @@ export default {
       }
     }
   }
+}
+.dia-footer{
+  text-align: right;
 }
 </style>

@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-11-01 10:18:26
- * @LastEditTime: 2020-03-13 16:39:28
- * @LastEditors: Please set LastEditors
+ * @LastEditTime : 2020-01-06 15:23:11
+ * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \bpsp-ui\src\views\pages\Info\Staffs\index.vue
  -->
@@ -298,7 +298,7 @@ export default {
   },
   data() {
     var idCard = (rule, value, callback) => {
-      if (!value) {
+      if (value === '') {
         callback(new Error('请输入身份证号'))
       } else {
         if (!validateIdCard(value)) {
@@ -321,7 +321,7 @@ export default {
       }
     }
     var startTime = (rule, value, callback) => {
-      if (!value) {
+      if (value === '') {
         callback(new Error('请选择有效开始时间'))
       } else {
         if (this.ruleForm.XkzEndTime) {
@@ -566,7 +566,7 @@ export default {
     ...mapGetters(['sysInfo', 'userInfo'])
   },
   created() {
-    this.getDicDataList()
+    // this.getDicDataList()
   },
   mounted() {
   },

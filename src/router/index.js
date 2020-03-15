@@ -77,6 +77,107 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/write',
+    component: Layout,
+    redirect: '/writePost',
+    name: '撰写',
+    meta: { title: '撰写', aicon: 'icontubiao-' },
+    children: [
+      {
+        path: 'writePost',
+        name: 'WritePost',
+        component: () => import('@/views/pages/Write/WritePost/index'),
+        meta: { title: '撰写文章', aicon: '' }
+      },
+      {
+        path: 'writePage',
+        name: 'WritePage',
+        component: () => import('@/views/pages/Write/WritePage/index'),
+        meta: { title: '创建页面', aicon: '' }
+      }
+    ]
+  },
+  {
+    path: '/manage',
+    component: Layout,
+    redirect: '/managePosts',
+    name: '管理',
+    meta: { title: '管理', aicon: 'iconmenu' },
+    children: [
+      {
+        path: 'managePosts',
+        name: 'ManagePosts',
+        component: () => import('@/views/pages/Manage/ManagePosts/index'),
+        meta: { title: '文章', aicon: '' }
+      },
+      {
+        path: 'managePages',
+        name: 'ManagePages',
+        component: () => import('@/views/pages/Manage/ManagePages/index'),
+        meta: { title: '独立页面', aicon: '' }
+      },
+
+      {
+        path: 'manageCategories',
+        name: 'ManageCategories',
+        component: () => import('@/views/pages/Manage/ManageCategories/index'),
+        meta: { title: '分类', aicon: '' }
+      },
+      {
+        path: 'manageTags',
+        name: 'ManageTags',
+        component: () => import('@/views/pages/Manage/ManageTags/index'),
+        meta: { title: '标签', aicon: '' }
+      },
+      {
+        path: 'manageComments',
+        name: 'ManageComments',
+        component: () => import('@/views/pages/Manage/ManageComments/index'),
+        meta: { title: '评论', aicon: '' }
+      },
+      {
+        path: 'manageMedias',
+        name: 'ManageMedias',
+        component: () => import('@/views/pages/Manage/ManageMedias/index'),
+        meta: { title: '文件', aicon: '' }
+      },
+      {
+        path: 'manageUsers',
+        name: 'ManageUsers',
+        component: () => import('@/views/pages/Manage/ManageUsers/index'),
+        meta: { title: '文件', aicon: '' }
+      }
+
+    ]
+  },
+  {
+    path: '/option',
+    component: Layout,
+    redirect: '/optionDiscussion',
+    name: '设置',
+    meta: { title: '设置', aicon: 'iconsetting' },
+    children: [
+      {
+        path: 'optionDiscussion',
+        name: 'OptionDiscussion',
+        component: () => import('@/views/pages/Option/OptionDiscussion/index'),
+        meta: { title: '评论', aicon: '' }
+      },
+      {
+        path: 'optionReading',
+        name: 'OptionReading',
+        component: () => import('@/views/pages/Option/OptionReading/index'),
+        meta: { title: '阅读', aicon: '' }
+      },
+      {
+        path: 'optionPermalink',
+        name: 'OptionPermalink',
+        component: () => import('@/views/pages/Option/OptionPermalink/index'),
+        meta: { title: '链接', aicon: '' }
+      }
+    ]
+  },
   { path: '*', redirect: '/404' }
   // 404 page must be placed at the end !!!
 
