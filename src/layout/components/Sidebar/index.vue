@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-09 15:51:14
+ * @LastEditTime: 2020-03-16 12:46:45
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \bpsp-uie:\doit\oneStep\frontCms\src\layout\components\Sidebar\index.vue
+ -->
 <template>
   <div :class="{'has-logo':showLogo}">
     <logo v-if="showLogo" :collapse="isCollapse" />

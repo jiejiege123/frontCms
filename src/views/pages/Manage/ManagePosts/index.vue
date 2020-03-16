@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-11-01 10:18:26
- * @LastEditTime : 2020-01-06 15:23:11
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2020-03-16 14:55:42
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \bpsp-ui\src\views\pages\Info\Staffs\index.vue
  -->
@@ -356,14 +356,13 @@ export default {
      * @param {type}
      */
     editRow(row) {
-      this.ruleForm = Object.assign({}, row)
-      this.dialogVisible = true
-      this.dialogTitle = '编辑'
-      this.dialogType = 'update'
-      // 如果存在就销毁
-      this.viewerCase ? this.viewerCase.destroy() : ''
-      this.$nextTick(() => {
-        this.viewerCase = new this.Viewer(this.$refs.ruleForm.$el)
+      // 跳转页面
+      this.$router.push({
+        path: '/Write/WritePost',
+        query: {
+          id: row.id,
+          name: row.title
+        }
       })
     },
     /**

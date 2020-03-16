@@ -81,7 +81,7 @@ export const constantRoutes = [
     path: '/write',
     component: Layout,
     redirect: '/writePost',
-    name: '撰写',
+    name: 'write',
     meta: { title: '撰写', aicon: 'icontubiao-' },
     children: [
       {

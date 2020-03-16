@@ -2,8 +2,8 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-30 09:31:42
- * @LastEditTime : 2020-01-02 15:09:14
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2020-03-16 13:28:51
+ * @LastEditors: Please set LastEditors
  */
 import { login, logout, getInfo, getRouter } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
@@ -25,9 +25,7 @@ const mutations = {
     state.token = token
   },
   SET_USERINFO: (state, info) => {
-    console.log(info)
     state.userInfo = info
-    console.log(state.userInfo)
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
@@ -55,7 +53,6 @@ const actions = {
     const { username, passwordPut } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: passwordPut }).then(response => {
-        console.log(response.Data)
         // const { data } = response
         // console.log(response)
         commit('SET_TOKEN', response.Data.id)

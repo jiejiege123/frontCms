@@ -2,14 +2,15 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-17 23:54:33
- * @LastEditTime: 2020-03-11 11:47:47
+ * @LastEditTime: 2020-03-16 14:59:15
  * @LastEditors: Please set LastEditors
  -->
 <template lang="pug">
-.index
-  #editor.layout-row(style="height: 100%")
+.index(v-loading='loading')
+  label.mr_10 标题
+  el-input(size="small" v-model="title" style='width: 400px;margin-bottom: 10px' placeholder="标题")
+  #editor.layout-row()
     mavon-editor.flex1(
-      v-loading='loading'
       v-model="mdValue"
       style="height: 100%"
       ref='md'
@@ -24,16 +25,36 @@
         el-date-picker.mb_15(
           v-model="creatTime"
           type="datetime"
-          size="mini"
+          size="small"
+          style='width: 100%'
           value-format="yyyy-MM-dd HH:mm:ss"
           placeholder="请选择发布日期")
+      //- 分类
       .right-list.layout-column
         label.mb_10 分类
-        el-date-picker.mb_15(
-          v-model="creatTime"
-          type="datetime"
-          size="mini"
-          placeholder="请选择发布日期")
+        el-tree(
+          :data="categoriesData"
+          show-checkbox
+          check-strictly
+          node-key="id"
+          default-expand-all
+          :default-checked-keys="defaultChecked"
+          :props="defaultProps")
+      .right-list.layout-column
+        label.mb_10
+        el-select(
+          v-model="tags"
+          placeholder="请选择标签"
+          filterable
+          multiple
+          style="width:100%"
+          size="small"
+          clearable)
+          el-option(
+            v-for="(item,index) in tagsData"
+            :key="index"
+            :label="item.tagName"
+            :value="item.id")
       .right-footer
         el-button(type="success" size="small" @click="uploadimg") 提交
 
@@ -51,6 +72,8 @@
 import { uploadImage } from '@/api/index'
 import { mapGetters } from 'vuex'
 import { mavonEditor } from 'mavon-editor'
+import { toTree } from '@/utils'
+import { getTags, getCategoriesAll } from '@/api/index'
 import 'mavon-editor/dist/css/index.css'
 export default {
   name: 'Index',
@@ -98,7 +121,16 @@ export default {
       },
       mdHtml: '',
       mdValue: '',
-      creatTime: ''
+      creatTime: '',
+      title: '',
+      tags: [],
+      categoriesData: [],
+      defaultExpanded: [],
+      defaultChecked: [],
+      defaultProps: {
+        children: 'children',
+        label: 'cagName'
+      }
     }
   },
   computed: {
@@ -108,9 +140,10 @@ export default {
     ...mapGetters(['userInfo'])
   },
   created() {
+    // console.log(this.$route.query.id)
+    this.getBaseData()
   },
   mounted() {
-
   },
   methods: {
     /** ********** 通用 start ************ **/
@@ -153,7 +186,6 @@ export default {
       }
       this.loading = true
       console.log(this.$refs.md.markdownIt)
-
       uploadImage(formdata).then(res => {
         console.log(res)
         res.imgPath.forEach((n, index) => {
@@ -168,11 +200,35 @@ export default {
     change(md, text) {
       console.log(md, text)
       this.mdHtml = text
-    }
+    },
     /** ********** 操作 end ************ **/
 
     /** ********** 接口 start ************ **/
+    getBaseData() {
+      const param1 = {
+        page: 1,
+        pageSize: 2000,
+        keyword: ''
+      }
+      this.loading = true
+      Promise.all([getTags(param1), getCategoriesAll()]).then(resS => {
+        this.$nextTick(() => {
+          this.loading = false
+        })
+        // setTimeout(() => {
+        //   this.$refs.reftable.doLayout()
+        // }, 200)
 
+        // 分类
+        this.tagsData = resS[0].Data.data
+        const data = toTree(resS[1].Data.data, 'id', 'pid')
+        this.categoriesData = data
+        // 标签
+      }).catch(err => {
+        this.loading = false
+        console.error(err)
+      })
+    }
     /** ********** 接口 end ************ **/
 
   }
@@ -180,15 +236,29 @@ export default {
 </script>
 <style lang="scss" scoped>
 .right-warp{
-  min-width: 220px;
+  min-width: 240px;
   padding-left: 10px;
   .right-footer{
     text-align: right;
+    margin-top: 15px;
   }
+
 }
 .index{
   padding: 15px;
   height: 100%;
   width: 100%;
+  /deep/ .v-note-wrapper{
+    z-index: 1;
+  }
+}
+#editor{
+  height: calc(100% - 42px);
+}
+.right-list{
+  /deep/ .el-tree{
+    border: 1px solid #d4d4d4;
+    padding: 10px 0;
+  }
 }
 </style>
