@@ -23,7 +23,7 @@
       .right-list.layout-column
         label.mb_10 发布日期
         el-date-picker.mb_15(
-          v-model="creatTime"
+          v-model="updateTime"
           type="datetime"
           size="small"
           style='width: 100%'
@@ -35,6 +35,7 @@
         el-tree(
           :data="categoriesData"
           show-checkbox
+          ref="cagTree"
           check-strictly
           node-key="id"
           default-expand-all
@@ -56,7 +57,7 @@
             :label="item.tagName"
             :value="item.id")
       .right-footer
-        el-button(type="success" size="small" @click="uploadimg") 提交
+        el-button(type="success" size="small" @click="submit") 提交
 
       //- el-upload.upload-demo(
       //-   ref="upload"
@@ -72,8 +73,13 @@
 import { uploadImage } from '@/api/index'
 import { mapGetters } from 'vuex'
 import { mavonEditor } from 'mavon-editor'
-import { toTree } from '@/utils'
-import { getTags, getCategoriesAll } from '@/api/index'
+import { parseTime, toTree } from '@/utils'
+import {
+  getTags,
+  getCategoriesAll,
+  addArticle,
+  getArticleById,
+  updateArticle } from '@/api/index'
 import 'mavon-editor/dist/css/index.css'
 export default {
   name: 'Index',
@@ -119,12 +125,14 @@ export default {
         subfield: true, // 单双栏模式
         preview: true // 预览
       },
+      id: '',
       mdHtml: '',
       mdValue: '',
-      creatTime: '',
+      updateTime: '',
       title: '',
       tags: [],
       categoriesData: [],
+      tagsData: [],
       defaultExpanded: [],
       defaultChecked: [],
       defaultProps: {
@@ -140,7 +148,9 @@ export default {
     ...mapGetters(['userInfo'])
   },
   created() {
-    // console.log(this.$route.query.id)
+    console.log(this.$route.query.id)
+    this.id = this.$route.query.id
+
     this.getBaseData()
   },
   mounted() {
@@ -173,32 +183,39 @@ export default {
     imgAdd(pos, $file) {
       // 缓存图片信息
       this.img_file[pos] = $file
-      // this.uploadimg()
+      // this.submit()
     },
     imgDel(pos) {
       delete this.img_file[pos]
     },
-    uploadimg() {
-      // 第一步.将图片上传到服务器.
-      var formdata = new FormData()
-      for (var _img in this.img_file) {
-        formdata.append('images', this.img_file[_img])
+    submit() {
+      if (this.title) {
+        if (this.img_file.length > 0) {
+          // 第一步.将图片上传到服务器.
+          var formdata = new FormData()
+          for (var _img in this.img_file) {
+            formdata.append('images', this.img_file[_img])
+          }
+          this.loading = true
+          uploadImage(formdata).then(res => {
+            console.log(res)
+            res.imgPath.forEach((n, index) => {
+              this.$refs.md.$img2Url(index + 1, process.env.VUE_APP_BASE_API + n.path)
+            })
+            this.loading = false
+            this.submitForm()
+          }).catch(err => {
+            console.error(err)
+            this.loading = false
+          })
+        } else {
+          this.submitForm()
+        }
+      } else {
+        this.$message.error('请填写标题')
       }
-      this.loading = true
-      console.log(this.$refs.md.markdownIt)
-      uploadImage(formdata).then(res => {
-        console.log(res)
-        res.imgPath.forEach((n, index) => {
-          this.$refs.md.$img2Url(index + 1, process.env.VUE_APP_BASE_API + n.path)
-        })
-        this.loading = false
-      }).catch(err => {
-        console.error(err)
-        this.loading = false
-      })
     },
     change(md, text) {
-      console.log(md, text)
       this.mdHtml = text
     },
     /** ********** 操作 end ************ **/
@@ -223,10 +240,97 @@ export default {
         this.tagsData = resS[0].Data.data
         const data = toTree(resS[1].Data.data, 'id', 'pid')
         this.categoriesData = data
-        // 标签
+
+        if (this.id) {
+          this.getArticleByIdData()
+        }
       }).catch(err => {
         this.loading = false
         console.error(err)
+      })
+    },
+    getArticleByIdData() {
+      this.loading = true
+      getArticleById({ id: this.id }).then(res => {
+        this.loading = false
+        this.artcile = res.Data
+        this.mdValue = res.Data.md
+        this.title = res.Data.title
+        if (res.Data.tags) {
+          const tags = res.Data.tags.split(',')
+          tags.forEach(n => {
+            n = parseInt(n)
+            this.tags.push(n)
+          })
+        }
+
+        if (res.Data.categories) {
+          const categories = res.Data.categories.split(',')
+          const cags = []
+          categories.forEach(n => {
+            n = parseInt(n)
+            cags.push(n)
+          })
+          this.$refs.cagTree.setCheckedKeys(cags)
+        }
+      }).catch(err => {
+        this.loading = false
+        console.error(err)
+      })
+    },
+    submitForm() {
+      this.loading = true
+      // 数组转字符穿
+      let categories = ''
+      const cats = this.$refs.cagTree.getCheckedKeys()
+      let tags = ''
+      if (cats.length > 0) {
+        cats.forEach((n, index) => {
+          if (index > 0) {
+            categories = categories + ',' + n
+          } else {
+            categories = categories + n
+          }
+        })
+      }
+      console.log(categories)
+      if (this.tags.length > 0) {
+        this.tags.forEach((n, index) => {
+          if (index > 1) {
+            tags = tags + ',' + n
+          } else {
+            tags = tags + n
+          }
+        })
+      }
+      const params = {
+        title: this.title,
+        body: this.mdHtml,
+        categories: categories,
+        tags: tags,
+        updateTime: this.updateTime,
+        md: this.mdValue
+      }
+      if (!this.id) {
+        params.creatTime = parseTime(new Date())
+      }
+      if (!this.updateTime) {
+        params.updateTime = parseTime(new Date())
+      }
+      let methods
+      if (this.id) {
+        methods = updateArticle
+        params.id = this.id
+      } else {
+        methods = addArticle
+      }
+      methods(params).then(res => {
+        this.$message.success('添加成功')
+        this.loading = false
+        this.$router.push('/manage/managePosts')
+      }).catch(err => {
+        console.error(err)
+        this.loading = false
       })
     }
     /** ********** 接口 end ************ **/

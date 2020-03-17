@@ -88,13 +88,13 @@ export const constantRoutes = [
         path: 'writePost',
         name: 'WritePost',
         component: () => import('@/views/pages/Write/WritePost/index'),
-        meta: { title: '撰写文章', aicon: '' }
+        meta: { title: '文章', aicon: '' }
       },
       {
         path: 'writePage',
         name: 'WritePage',
         component: () => import('@/views/pages/Write/WritePage/index'),
-        meta: { title: '创建页面', aicon: '' }
+        meta: { title: '页面', aicon: '' }
       }
     ]
   },
@@ -146,7 +146,7 @@ export const constantRoutes = [
         path: 'manageUsers',
         name: 'ManageUsers',
         component: () => import('@/views/pages/Manage/ManageUsers/index'),
-        meta: { title: '文件', aicon: '' }
+        meta: { title: '用户', aicon: '' }
       }
 
     ]

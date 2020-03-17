@@ -17,7 +17,7 @@
         span 个分类
       p 点击下面的链接快速开始：
       .btn-warp
-        el-link(type="primary") 撰写新文章
+        el-link(type="primary" @click="goWrite") 撰写新文章
         el-link(type="primary" @click="showDialog('profile')") 个人设置
         el-link(type="primary" @click="showDialog('general')") 系统设置
     .linex
@@ -185,11 +185,13 @@ export default {
         }
       })
     },
+    goWrite() {
+      this.$router.push('/write/writePost')
+    },
     /** ********** 操作 end ************ **/
 
     /** ********** 接口 start ************ **/
     getOptionData() {
-
     }
     /** ********* 接口 end ************ **/
 

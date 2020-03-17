@@ -11,7 +11,7 @@ import request from '@/utils/request'
 // 上传图片
 export function uploadImage(data) {
   return request({
-    url: '/blog/uploadImage',
+    url: '/backend/uploadImage',
     method: 'post',
     data,
     headers: { 'Content-Type': 'multipart/form-data' }
@@ -24,6 +24,15 @@ export function profile(data) {
     url: '/backend/profile',
     method: 'post',
     data
+  })
+}
+// 获取基本数据
+
+export function getDataBase(params) {
+  return request({
+    url: '/blog/getDataBase',
+    method: 'get',
+    params
   })
 }
 
@@ -108,6 +117,13 @@ export function getArticle(params) {
     params
   })
 }
+export function getArticleById(params) {
+  return request({
+    url: '/blog/article',
+    method: 'get',
+    params
+  })
+}
 // 添加文章
 export function addArticle(data) {
   return request({
@@ -128,6 +144,46 @@ export function updateArticle(data) {
 export function delArticle(data) {
   return request({
     url: '/backend/delArticle',
+    method: 'post',
+    data
+  })
+}
+
+// 获取独立页面
+export function getPages(params) {
+  return request({
+    url: '/blog/getPagesList',
+    method: 'get',
+    params
+  })
+}
+export function getPagesById(params) {
+  return request({
+    url: '/blog/getPage',
+    method: 'get',
+    params
+  })
+}
+// 添加独立页面
+export function addPages(data) {
+  return request({
+    url: '/backend/addPages',
+    method: 'post',
+    data
+  })
+}
+// 编辑独立页面
+export function updatePages(data) {
+  return request({
+    url: '/backend/updatePages',
+    method: 'post',
+    data
+  })
+}
+// 删除独立页面
+export function delPages(data) {
+  return request({
+    url: '/backend/delPages',
     method: 'post',
     data
   })

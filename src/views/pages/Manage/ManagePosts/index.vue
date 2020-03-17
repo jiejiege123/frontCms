@@ -77,7 +77,8 @@
       el-table-column(label="分类" align="center" prop="categories")
       el-table-column(label="标签" align="center" prop="tags")
       el-table-column(label="状态" align="center" prop="status")
-      el-table-column(label="日期" align="center" prop="updateTime")
+      el-table-column(label="创建时间" align="center" prop="creatTime" width="160px")
+      el-table-column(label="更新时间" align="center" prop="updateTime" width="160px")
       el-table-column(label="评论" align="center" prop="comments")
       el-table-column(label="操作" align="center" fixed="right" width="150px")
         template(slot-scope='scope')
@@ -150,7 +151,7 @@ import {
   delArticle } from '@/api/index'
 import ImageDialog from '@/components/ImageDialog'
 import { mapGetters } from 'vuex'
-import { toTree } from '@/utils'
+import { toTree, parseTime } from '@/utils'
 import DialogForm from '@/components/DialogForm'
 import LongDatePicker from '@/components/LongDatePicker'
 import 'viewerjs/dist/viewer.css'
@@ -264,20 +265,14 @@ export default {
       return 'background-color: #FAFAFA;'
     },
     cellClassName({ row, column, rowIndex, columnIndex }) {
-      if (column.property === 'codespvalueZh') {
-        switch (row.codespvalue) {
-          case '-1':
+      if (column.property === 'status') {
+        switch (row.status) {
+          case '草稿':
             // 未提交
             return 'approve-wait'
-          case '0':
+          case '已发布':
             // 审核中
-            return 'approve-ing'
-          case '1':
-            // 通过
             return 'approve-pass'
-          // 拒绝
-          case '2':
-            return 'approve-refused'
           default:
             return 'approve-ing'
         }
@@ -486,21 +481,56 @@ export default {
       }
       this.loading = true
       Promise.all([getArticle(params), getTags(param1), getCategoriesAll()]).then(resS => {
-        console.log(resS)
         this.$nextTick(() => {
           this.loading = false
         })
         setTimeout(() => {
           this.$refs.reftable.doLayout()
         }, 200)
-        const tableData = resS[0].Data.data
-        this.tableData = tableData
-        this.total = resS[0].Data.totle
-
         // 分类
         this.tagsData = resS[1].Data.data
-        this.categoriesData = resS[2].Data.data
         // 标签
+        this.categoriesData = resS[2].Data.data
+
+        const tableData = resS[0].Data.data
+        tableData.forEach(n => {
+          if (n.categories) {
+            const categories = n.categories.split(',')
+            n.categories = []
+            categories.forEach((e, index) => {
+              const ob = this.categoriesData.find(i => i.id === parseInt(e))
+              e = ob ? this.categoriesData.find(i => i.id === parseInt(e)).cagName : ''
+              console.log(e)
+              if (index > 0) {
+                n.categories.push('，' + e)
+              } else {
+                n.categories.push(e)
+              }
+            })
+          }
+          if (n.tags) {
+            const tags = n.tags.split(',')
+            n.tags = []
+            tags.forEach((e, index) => {
+              const ob = this.tagsData.find(i => i.id === parseInt(e))
+              e = ob ? this.tagsData.find(i => i.id === parseInt(e)).tagName : ''
+              console.log(e)
+              if (index > 0) {
+                n.tags.push('，' + e)
+              } else {
+                n.tags.push(e)
+              }
+            })
+          }
+
+          if (n.updateTime > parseTime(new Date().getTime())) {
+            n.status = '草稿'
+          } else {
+            n.status = '已发布'
+          }
+        })
+        this.tableData = tableData
+        this.total = resS[0].Data.totle
       }).catch(err => {
         this.loading = false
         console.error(err)
