@@ -303,7 +303,7 @@ export default {
           }
         })
         this.tableData = tableData
-        this.total = resS.Data.totle
+        this.total = resS.Data.total
       }).catch(err => {
         this.loading = false
         console.error(err)

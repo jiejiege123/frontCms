@@ -39,14 +39,14 @@ export function getDataBase(params) {
 // 获取分类
 export function getCategories(params) {
   return request({
-    url: '/backend/getCategories',
+    url: '/blog/getCategories',
     method: 'get',
     params
   })
 }
 export function getCategoriesAll() {
   return request({
-    url: '/backend/getCategoriesAll',
+    url: '/blog/getCategoriesAll',
     method: 'get'
   })
 }
@@ -79,7 +79,7 @@ export function delCategories(data) {
 // 获取标签
 export function getTags(params) {
   return request({
-    url: '/backend/getTags',
+    url: '/blog/getTags',
     method: 'get',
     params
   })

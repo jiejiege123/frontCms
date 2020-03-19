@@ -109,7 +109,7 @@ export const constantRoutes = [
         path: 'managePosts',
         name: 'ManagePosts',
         component: () => import('@/views/pages/Manage/ManagePosts/index'),
-        meta: { title: '文章', aicon: '' }
+        meta: { title: '文章管理', aicon: '' }
       },
       {
         path: 'managePages',

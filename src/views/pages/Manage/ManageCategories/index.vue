@@ -75,6 +75,9 @@
       el-table-column(type="selection" align="center" width="55")
       el-table-column(label="名称" align="left" prop="cagName")
       el-table-column(label="字段" align="center" prop="eName")
+      el-table-column(label="图标" align="center" prop="icon")
+        template(slot-scope='scope')
+          i(class="icon iconfont" :class="scope.row.icon")
       el-table-column(label="顺序" align="center" prop="upIndex")
       el-table-column(label="文章数" align="center" prop="nums")
       el-table-column(label="说明" align="center" prop="decs")
@@ -215,6 +218,10 @@ export default {
         {
           label: '字段',
           prop: 'eName'
+        },
+        {
+          label: '图标',
+          prop: 'icon'
         },
         {
           label: '顺序',
@@ -489,7 +496,7 @@ export default {
         const tData = toTree(tableData, 'id', 'pid')
         // 处理table数据 形成数结构
         this.tableData = tData
-        this.total = res.Data.totle
+        this.total = res.Data.total
       }).catch(() => {
         this.loading = false
       })

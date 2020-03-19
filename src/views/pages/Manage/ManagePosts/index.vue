@@ -530,7 +530,7 @@ export default {
           }
         })
         this.tableData = tableData
-        this.total = resS[0].Data.totle
+        this.total = resS[0].Data.total
       }).catch(err => {
         this.loading = false
         console.error(err)

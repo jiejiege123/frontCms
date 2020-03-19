@@ -6,6 +6,48 @@
   "description": "博客图标",
   "glyphs": [
     {
+      "icon_id": "554435",
+      "name": "网络",
+      "font_class": "iconset0401",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    },
+    {
+      "icon_id": "1160150",
+      "name": "h5e",
+      "font_class": "h5e",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "1160905",
+      "name": "social-javascript-outline",
+      "font_class": "socialjavascriptoutline",
+      "unicode": "e899",
+      "unicode_decimal": 59545
+    },
+    {
+      "icon_id": "8953375",
+      "name": "vuejs",
+      "font_class": "vuejs",
+      "unicode": "e849",
+      "unicode_decimal": 59465
+    },
+    {
+      "icon_id": "11992500",
+      "name": "css3",
+      "font_class": "css",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "11993242",
+      "name": "react",
+      "font_class": "react",
+      "unicode": "e741",
+      "unicode_decimal": 59201
+    },
+    {
       "icon_id": "657287",
       "name": "分期－出行天数",
       "font_class": "chuxingtianshu",

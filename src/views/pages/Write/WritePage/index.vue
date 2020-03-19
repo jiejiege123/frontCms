@@ -9,6 +9,10 @@
 .index(v-loading='loading')
   label.mr_10 标题
   el-input(size="small" v-model="title" style='width: 400px;margin-bottom: 10px' placeholder="标题")
+  label.mr_10.ml_20 标识
+  el-input(size="small" v-model="eName" placeholder="标识" style="width: 150px")
+  label.mr_10.ml_20 图标
+  el-input(size="small" v-model="icon" placeholder="图标" style="width: 150px")
   #editor.layout-row()
     mavon-editor.flex1(
       v-model="mdValue"
@@ -105,6 +109,8 @@ export default {
       mdValue: '',
       updateTime: '',
       title: '',
+      eName: '',
+      icon: '',
       tags: [],
       categoriesData: [],
       tagsData: [],
@@ -168,7 +174,7 @@ export default {
       delete this.img_file[pos]
     },
     submit() {
-      if (this.title) {
+      if (this.title && this.eName) {
         if (this.img_file.length > 0) {
           // 第一步.将图片上传到服务器.
           var formdata = new FormData()
@@ -207,6 +213,8 @@ export default {
         this.artcile = res.Data
         this.mdValue = res.Data.md
         this.title = res.Data.title
+        this.eName = res.Data.eName
+        this.icon = res.Data.icon
         this.upIndex = res.Data.upIndex
       }).catch(err => {
         this.loading = false
@@ -220,7 +228,9 @@ export default {
         body: this.mdHtml,
         upIndex: this.upIndex,
         updateTime: this.updateTime,
-        md: this.mdValue
+        eName: this.eName,
+        md: this.mdValue,
+        icon: this.icon
       }
       if (!this.id) {
         params.creatTime = parseTime(new Date())

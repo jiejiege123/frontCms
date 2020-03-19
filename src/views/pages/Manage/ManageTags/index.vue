@@ -463,7 +463,7 @@ export default {
         const tableData = res.Data.data
         // 处理table数据 形成数结构
         this.tableData = tableData
-        this.total = res.Data.totle
+        this.total = res.Data.total
       }).catch(() => {
         this.loading = false
       })

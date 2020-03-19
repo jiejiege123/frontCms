@@ -32,12 +32,13 @@
       //- 分类
       .right-list.layout-column
         label.mb_10 分类
+          //-
         el-tree(
           :data="categoriesData"
           show-checkbox
           ref="cagTree"
-          check-strictly
           node-key="id"
+          check-strictly
           default-expand-all
           :default-checked-keys="defaultChecked"
           :props="defaultProps")
@@ -189,7 +190,7 @@ export default {
       delete this.img_file[pos]
     },
     submit() {
-      if (this.title) {
+      if (this.title && this.$refs.cagTree.getCheckedKeys().length > 0) {
         if (this.img_file.length > 0) {
           // 第一步.将图片上传到服务器.
           var formdata = new FormData()
@@ -212,7 +213,7 @@ export default {
           this.submitForm()
         }
       } else {
-        this.$message.error('请填写标题')
+        this.$message.error('请填写标题, 至少选择一个分类')
       }
     },
     change(md, text) {
@@ -235,12 +236,10 @@ export default {
         // setTimeout(() => {
         //   this.$refs.reftable.doLayout()
         // }, 200)
-
         // 分类
         this.tagsData = resS[0].Data.data
         const data = toTree(resS[1].Data.data, 'id', 'pid')
         this.categoriesData = data
-
         if (this.id) {
           this.getArticleByIdData()
         }
@@ -309,7 +308,8 @@ export default {
         categories: categories,
         tags: tags,
         updateTime: this.updateTime,
-        md: this.mdValue
+        md: this.mdValue,
+        author: this.userInfo.userName
       }
       if (!this.id) {
         params.creatTime = parseTime(new Date())
