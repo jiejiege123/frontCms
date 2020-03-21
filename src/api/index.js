@@ -188,3 +188,36 @@ export function delPages(data) {
     data
   })
 }
+
+// 获取动态
+export function getThumbs(params) {
+  return request({
+    url: '/blog/getThumbsList',
+    method: 'get',
+    params
+  })
+}
+// 添加动态
+export function addThumb(data) {
+  return request({
+    url: '/backend/addThumb',
+    method: 'post',
+    data
+  })
+}
+// 编辑动态
+export function updateThumb(data) {
+  return request({
+    url: '/backend/updateThumb',
+    method: 'post',
+    data
+  })
+}
+// 删除动态
+export function delThumb(data) {
+  return request({
+    url: '/backend/delThumb',
+    method: 'post',
+    data
+  })
+}

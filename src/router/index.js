@@ -117,7 +117,12 @@ export const constantRoutes = [
         component: () => import('@/views/pages/Manage/ManagePages/index'),
         meta: { title: '独立页面', aicon: '' }
       },
-
+      {
+        path: 'manageThumbs',
+        name: 'ManageThumbs',
+        component: () => import('@/views/pages/Manage/ManageThumbs/index'),
+        meta: { title: '动态', aicon: '' }
+      },
       {
         path: 'manageCategories',
         name: 'ManageCategories',
@@ -130,6 +135,7 @@ export const constantRoutes = [
         component: () => import('@/views/pages/Manage/ManageTags/index'),
         meta: { title: '标签', aicon: '' }
       },
+
       {
         path: 'manageComments',
         name: 'ManageComments',
