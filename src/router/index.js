@@ -190,7 +190,7 @@ export const constantRoutes = [
 ]
 // 拿到获取到的路由
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

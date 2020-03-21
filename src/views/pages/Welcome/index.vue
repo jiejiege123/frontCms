@@ -25,8 +25,8 @@
       h4 最近发布的文章
       .acticle-list
         .acticle-item.layout-row.align-center(v-for="(item,index) in acticleList" :key="item.id")
-          .time {{item.time}}
-          el-link(type="primary") {{item.title}}
+          .time {{item.updateTime.slice(5,10)}}
+          el-link(type="primary" @click="goDetail(item)") {{item.title}}
     //- 弹窗 个人设置和系统设置
     el-dialog.dialog-class(
       :title='dialogTitle',
@@ -54,7 +54,7 @@
 </template>
 
 <script >
-import { profile } from '@/api/index'
+import { profile, getArticleOrder, getCategoriesAll } from '@/api/index'
 import DialogForm from '@/components/DialogForm'
 
 import { mapGetters } from 'vuex'
@@ -98,9 +98,9 @@ export default {
     ...mapGetters(['userInfo'])
   },
   created() {
+    this.getBaseData()
   },
   mounted() {
-    console.log(this.userInfo)
   },
   methods: {
     /** ********** 通用 start ************ **/
@@ -188,10 +188,29 @@ export default {
     goWrite() {
       this.$router.push('/write/writePost')
     },
+    goDetail(item) {
+      console.log(this.userInfo.homePage)
+      window.open(`${this.userInfo.homePage}/detail?id=${item.id}`)
+      // 域名下来再跳转
+    },
     /** ********** 操作 end ************ **/
 
     /** ********** 接口 start ************ **/
     getOptionData() {
+    },
+    getBaseData() {
+      const param2 = {
+        page: 1,
+        pageSize: 10
+      }
+      Promise.all([getArticleOrder(param2), getCategoriesAll()]).then(res => {
+        console.log(res)
+        this.articles = res[0].Data[2][0].total
+        this.types = res[1].Data.data.length
+        this.acticleList = res[0].Data[1]
+      }).catch(err => {
+        console.error(err)
+      })
     }
     /** ********* 接口 end ************ **/
 
@@ -240,7 +259,7 @@ export default {
         margin-right: 4px;
         padding-right: 8px;
         border-right: 1px solid #ECECEC;
-        width: 37px;
+        width: 50px;
         text-align: right;
         color: #999;
         font-size: 14px;

@@ -221,3 +221,11 @@ export function delThumb(data) {
     data
   })
 }
+
+export function getArticleOrder(params) {
+  return request({
+    url: '/blog/getArticleOrder',
+    method: 'get',
+    params
+  })
+}
