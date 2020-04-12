@@ -187,11 +187,23 @@ export default {
       // this.submit()
     },
     imgDel(pos) {
-      delete this.img_file[pos]
+      console.log(pos)
+      delete this.img_file[pos[0]]
+      console.log(this.img_file)
     },
     submit() {
       if (this.title && this.$refs.cagTree.getCheckedKeys().length > 0) {
-        if (this.img_file.length > 0) {
+        console.log(this.img_file)
+        const that = this
+        var b = function() {
+          for (var key in that.img_file) {
+            console.log(key)
+            return false
+          }
+          return true
+        }
+
+        if (!b()) {
           // 第一步.将图片上传到服务器.
           var formdata = new FormData()
           for (var _img in this.img_file) {

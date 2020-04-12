@@ -6,6 +6,34 @@
   "description": "博客图标",
   "glyphs": [
     {
+      "icon_id": "11493418",
+      "name": "python",
+      "font_class": "python",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "884009",
+      "name": "灯泡",
+      "font_class": "dengpao",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "9097107",
+      "name": "其他",
+      "font_class": "ziyuan",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "866281",
+      "name": "框架_frame23",
+      "font_class": "kuangjiaframe23",
+      "unicode": "e946",
+      "unicode_decimal": 59718
+    },
+    {
       "icon_id": "554435",
       "name": "网络",
       "font_class": "iconset0401",
