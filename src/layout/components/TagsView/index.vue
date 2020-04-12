@@ -20,7 +20,7 @@
         @click.middle.native="closeSelectedTag(tag)"
         @contextmenu.prevent.native="openMenu(tag,$event)"
       >
-        {{ tag.path.includes('Write') ? tag.title+tag.query.name : tag.title }}
+        {{ tag.path.includes('Write') ? '编辑文章'+tag.query.name : tag.title }}
         <span v-if="!tag.meta.affix" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
       </router-link>
     </scroll-pane>

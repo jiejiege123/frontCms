@@ -213,7 +213,7 @@ export default {
           uploadImage(formdata).then(res => {
             console.log(res)
             res.imgPath.forEach((n, index) => {
-              this.$refs.md.$img2Url(index + 1, process.env.VUE_APP_BASE_API + n.path)
+              this.$refs.md.$img2Url(index + 1, 'https://zemengzhou.top:3000/' + n.path)
             })
             this.loading = false
             this.submitForm()
@@ -242,9 +242,6 @@ export default {
       }
       this.loading = true
       Promise.all([getTags(param1), getCategoriesAll()]).then(resS => {
-        this.$nextTick(() => {
-          this.loading = false
-        })
         // setTimeout(() => {
         //   this.$refs.reftable.doLayout()
         // }, 200)
@@ -255,6 +252,9 @@ export default {
         if (this.id) {
           this.getArticleByIdData()
         }
+        this.$nextTick(() => {
+          this.loading = false
+        })
       }).catch(err => {
         this.loading = false
         console.error(err)
