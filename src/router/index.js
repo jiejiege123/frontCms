@@ -136,19 +136,19 @@ export const constantRoutes = [
         path: 'manageComments',
         name: 'ManageComments',
         component: () => import('@/views/pages/Manage/ManageComments/index'),
-        meta: { title: '评论', aicon: '' }
+        meta: { title: '评论TODO', aicon: '' }
       },
       {
         path: 'manageMedias',
         name: 'ManageMedias',
         component: () => import('@/views/pages/Manage/ManageMedias/index'),
-        meta: { title: '文件', aicon: '' }
+        meta: { title: '文件TODO', aicon: '' }
       },
       {
         path: 'manageUsers',
         name: 'ManageUsers',
         component: () => import('@/views/pages/Manage/ManageUsers/index'),
-        meta: { title: '用户', aicon: '' }
+        meta: { title: '用户TODO', aicon: '' }
       }
 
     ]
@@ -158,25 +158,25 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/optionDiscussion',
     name: '设置',
-    meta: { title: '设置', aicon: 'iconsetting' },
+    meta: { title: '设置TODO', aicon: 'iconsetting' },
     children: [
       {
         path: 'optionDiscussion',
         name: 'OptionDiscussion',
         component: () => import('@/views/pages/Option/OptionDiscussion/index'),
-        meta: { title: '评论', aicon: '' }
+        meta: { title: '评论TODO', aicon: '' }
       },
       {
         path: 'optionReading',
         name: 'OptionReading',
         component: () => import('@/views/pages/Option/OptionReading/index'),
-        meta: { title: '阅读', aicon: '' }
+        meta: { title: '阅读TODO', aicon: '' }
       },
       {
         path: 'optionPermalink',
         name: 'OptionPermalink',
         component: () => import('@/views/pages/Option/OptionPermalink/index'),
-        meta: { title: '链接', aicon: '' }
+        meta: { title: '链接TODO', aicon: '' }
       }
     ]
   },
