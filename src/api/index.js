@@ -27,7 +27,6 @@ export function profile(data) {
   })
 }
 // 获取基本数据
-
 export function getDataBase(params) {
   return request({
     url: '/blog/getDataBase',

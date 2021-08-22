@@ -86,11 +86,6 @@
             type="primary"
             @click="editRow(scope.row)"
             size="mini") 编辑
-          //- el-button(
-          //-   type="success"
-          //-   plain
-          //-   @click="viewRow(scope.row)"
-          //-   size="mini") 详情
           el-button(
             type="danger"
             plain
@@ -360,21 +355,7 @@ export default {
         }
       })
     },
-    /**
-     * @description: 查看数据
-     * @param {type}
-     */
-    viewRow(row) {
-      this.ruleForm = Object.assign({}, row)
-      this.dialogVisible = true
-      this.dialogTitle = '人员详情'
-      this.dialogType = 'view'
-      // 如果存在就销毁
-      this.viewerCase ? this.viewerCase.destroy() : ''
-      this.$nextTick(() => {
-        this.viewerCase = new this.Viewer(this.$refs.ruleForm.$el)
-      })
-    },
+
     /**
      * @description: 删除数据
      * @param {row} Object 行数据

@@ -42,21 +42,13 @@ module.exports = {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
         // target: `http://127.0.0.1:${port}/mock`,
-        target: `https://zemengzhou.top:3000`,
-        // target: `http://localhost:3000`,
+        target: `http://localhost:3000`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
         }
       }
-      // '/xzx': {
-      //   // target: `http://127.0.0.1:${port}/mock`,
-      //   target: `http://127.0.0.1:8989/api/`,
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/xzx': ''
-      //   }
-      // }
+
     },
     after: require('./mock/mock-server.js')
   },

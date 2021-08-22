@@ -25,7 +25,7 @@
       h4 最近发布的文章
       .acticle-list
         .acticle-item.layout-row.align-center(v-for="(item,index) in acticleList" :key="item.id")
-          .time {{item.updateTime.slice(5,10)}}
+          .time {{item.updateTime ? item.updateTime.slice(5,10) : ''}}
           el-link(type="primary" @click="goDetail(item)") {{item.title}}
     //- 弹窗 个人设置和系统设置
     el-dialog.dialog-class(
@@ -73,13 +73,9 @@ export default {
           time: '3.5',
           title: 'js基本概念'
         },
-        {
-          time: '3.5',
-          title: 'js基本概念'
-        }
       ],
-      articles: 13,
-      types: 8,
+      articles: 0,
+      types: 0,
       // 弹窗
       dialogTitle: '个人设置',
       dialogVisible: false,
