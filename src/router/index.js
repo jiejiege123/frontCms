@@ -130,56 +130,56 @@ export const constantRoutes = [
         name: 'ManageTags',
         component: () => import('@/views/pages/Manage/ManageTags/index'),
         meta: { title: '标签', aicon: '' }
-      },
-
-      {
-        path: 'manageComments',
-        name: 'ManageComments',
-        component: () => import('@/views/pages/Manage/ManageComments/index'),
-        meta: { title: '评论TODO', aicon: '' }
-      },
-      {
-        path: 'manageMedias',
-        name: 'ManageMedias',
-        component: () => import('@/views/pages/Manage/ManageMedias/index'),
-        meta: { title: '文件TODO', aicon: '' }
-      },
-      {
-        path: 'manageUsers',
-        name: 'ManageUsers',
-        component: () => import('@/views/pages/Manage/ManageUsers/index'),
-        meta: { title: '用户TODO', aicon: '' }
       }
+
+      // {
+      //   path: 'manageComments',
+      //   name: 'ManageComments',
+      //   component: () => import('@/views/pages/Manage/ManageComments/index'),
+      //   meta: { title: '评论TODO', aicon: '' }
+      // },
+      // {
+      //   path: 'manageMedias',
+      //   name: 'ManageMedias',
+      //   component: () => import('@/views/pages/Manage/ManageMedias/index'),
+      //   meta: { title: '文件TODO', aicon: '' }
+      // },
+      // {
+      //   path: 'manageUsers',
+      //   name: 'ManageUsers',
+      //   component: () => import('@/views/pages/Manage/ManageUsers/index'),
+      //   meta: { title: '用户TODO', aicon: '' }
+      // }
 
     ]
   },
-  {
-    path: '/option',
-    component: Layout,
-    redirect: '/optionDiscussion',
-    name: '设置',
-    meta: { title: '设置TODO', aicon: 'iconsetting' },
-    children: [
-      {
-        path: 'optionDiscussion',
-        name: 'OptionDiscussion',
-        component: () => import('@/views/pages/Option/OptionDiscussion/index'),
-        meta: { title: '评论TODO', aicon: '' }
-      },
-      {
-        path: 'optionReading',
-        name: 'OptionReading',
-        component: () => import('@/views/pages/Option/OptionReading/index'),
-        meta: { title: '阅读TODO', aicon: '' }
-      },
-      {
-        path: 'optionPermalink',
-        name: 'OptionPermalink',
-        component: () => import('@/views/pages/Option/OptionPermalink/index'),
-        meta: { title: '链接TODO', aicon: '' }
-      }
-    ]
-  },
+  // {
+  //   path: '/option',
+  //   component: Layout,
+  //   redirect: '/optionDiscussion',
+  //   name: '设置',
+  //   meta: { title: '设置TODO', aicon: 'iconsetting' },
+  //   children: [
+  //     {
+  //       path: 'optionDiscussion',
+  //       name: 'OptionDiscussion',
+  //       component: () => import('@/views/pages/Option/OptionDiscussion/index'),
+  //       meta: { title: '评论TODO', aicon: '' }
+  //     },
+  //     {
+  //       path: 'optionReading',
+  //       name: 'OptionReading',
+  //       component: () => import('@/views/pages/Option/OptionReading/index'),
+  //       meta: { title: '阅读TODO', aicon: '' }
+  //     },
+  //     {
+  //       path: 'optionPermalink',
+  //       name: 'OptionPermalink',
+  //       component: () => import('@/views/pages/Option/OptionPermalink/index'),
+  //       meta: { title: '链接TODO', aicon: '' }
+  //     }
+  //   ]
+  // },
   { path: '*', redirect: '/404' }
   // 404 page must be placed at the end !!!
 
