@@ -2,8 +2,8 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-17 23:54:33
- * @LastEditTime: 2020-03-16 14:59:15
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-23 14:18:30
+ * @LastEditors: zzz
  -->
 <template lang="pug">
 .index(v-loading='loading')
@@ -213,7 +213,7 @@ export default {
           uploadImage(formdata).then(res => {
             console.log(res)
             res.imgPath.forEach((n, index) => {
-              this.$refs.md.$img2Url(index + 1, 'https://zemengzhou.top:3000/' + n.path)
+              this.$refs.md.$img2Url(index + 1, 'http://localhost:3000/' + n.path)
             })
             this.loading = false
             this.submitForm()

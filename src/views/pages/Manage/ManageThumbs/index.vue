@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-11-01 10:18:26
- * @LastEditTime : 2020-01-06 15:23:11
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2021-08-23 14:17:04
+ * @LastEditors: zzz
  * @Description: In User Settings Edit
  * @FilePath: \bpsp-ui\src\views\pages\Info\Staffs\index.vue
  -->
@@ -10,33 +10,7 @@
 .content.layout-column
   .header.layout-row__between
     .query
-      //- 审核状态查询
-      //- el-select(
-      //-   v-model="spvalueSearch"
-      //-   placeholder="请选择审核状态"
-      //-   filterable
-      //-   style="padding-right:15px; width:160px"
-      //-   size="mini"
-      //-   clearable
-      //-   @change="doSearch")
-      //-   el-option(
-      //-     v-for="(item,index) in dics.spvalue"
-      //-     :key="index"
-      //-     :label="item.label"
-      //-     :value="item.value")
-      //- el-select(
-      //-   v-model="QF007Search"
-      //-   placeholder="请选择岗位类型"
-      //-   filterable
-      //-   style="padding-right:15px; width:160px"
-      //-   size="mini"
-      //-   clearable
-      //-   @change="doSearch")
-      //-   el-option(
-      //-     v-for="(item,index) in dics.QF007"
-      //-     :key="index"
-      //-     :label="item.label"
-      //-     :value="item.value")
+
       el-input.input-search(
         placeholder='请输入查询'
         v-model='search'
