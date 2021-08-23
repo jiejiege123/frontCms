@@ -2,8 +2,8 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-17 23:54:33
- * @LastEditTime: 2019-09-03 10:28:12
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-23 12:57:01
+ * @LastEditors: zzz
  -->
 <template lang="pug">
   .welcome
@@ -125,7 +125,7 @@ export default {
           },
           {
             label: '头像',
-            prop: 'hendPhoto',
+            prop: 'headPhoto',
             type: 'img'
           }
         ]

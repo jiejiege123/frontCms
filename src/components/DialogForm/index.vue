@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-11-01 10:18:26
- * @LastEditTime : 2020-01-06 15:23:11
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2021-08-23 13:10:12
+ * @LastEditors: zzz
  * @Description: In User Settings Edit
  * @FilePath: \bpsp-ui\src\views\pages\Info\Staffs\index.vue
  -->
@@ -67,6 +67,7 @@
         el-upload.avatar-uploader(
           v-else
           :action='action'
+          name="images"
           :show-file-list='false'
           :on-success='(value)=> handleFileSuccess(item.prop, value)'
           :before-upload='beforeAvatarUpload')
@@ -142,7 +143,7 @@ export default {
   },
   computed: {
     action() {
-      return `${process.env.VUE_APP_BASE_API}/backend/UploadImage`
+      return `${process.env.VUE_APP_BASE_API}/backend/uploadImage`
     },
     ...mapGetters(['sysInfo', 'userInfo'])
   },
@@ -157,7 +158,7 @@ export default {
       if (res.Status === 101) {
         this.$message.error(res.Msg)
       } else {
-        const url = res.Data.url
+        const url = res.imgPath[0].path.replace(/\\/g, '/')
         this.$set(this.ruleForm, prop, url)
         // this.$emit('onFileSuccess', prop, url)
       }
